@@ -52,6 +52,17 @@ class APIService:
         """
         Retrieve HubSpot CRM v3 Deals with cursor pagination support.
         """
+
+        if self.test_delay_seconds > 0:
+            self.logger.info(
+                f"Test delay: sleeping for {self.test_delay_seconds} seconds",
+                extra={
+                    "operation": "get_deals",
+                    "delay_type": "test_delay",
+                },
+            )
+            time.sleep(self.test_delay_seconds)
+
         headers = {
             "Authorization": f"Bearer {access_token}",
             "Content-Type": "application/json",
